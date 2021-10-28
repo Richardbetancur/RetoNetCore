@@ -15,7 +15,7 @@ namespace ExtraHoursAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class UsersController : ControllerBase
     {
         private readonly HoursContext _context;
@@ -27,6 +27,7 @@ namespace ExtraHoursAPI.Controllers
 
         // GET: api/Users
         [HttpGet]
+        [Authorize(Roles = "4")]
         public async Task<ActionResult<IEnumerable<Users>>> GetUsers()
         {
             return await _context.Users.ToListAsync();
@@ -34,6 +35,7 @@ namespace ExtraHoursAPI.Controllers
 
         // GET: api/Users/5
         [HttpGet("{id}")]
+        [Authorize(Roles = "4")]
         public async Task<ActionResult<Users>> GetUsers(int id)
         {
             var users = await _context.Users.FindAsync(id);
@@ -50,6 +52,7 @@ namespace ExtraHoursAPI.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
+        [Authorize(Roles = "4")]
         public async Task<IActionResult> PutUsers(int id, Users users)
         {
             if (id != users.IdUser)
@@ -82,7 +85,7 @@ namespace ExtraHoursAPI.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        //[Authorize(Roles = "3")]
+        [Authorize(Roles = "4")]
         public async Task<ActionResult<Users>> PostUsers(Users users)
         {
             _context.Users.Add(users);

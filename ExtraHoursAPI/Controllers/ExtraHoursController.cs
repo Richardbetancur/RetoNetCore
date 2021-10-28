@@ -80,6 +80,7 @@ namespace ExtraHoursAPI.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
+        [Authorize(Roles = "6")]
         public async Task<ActionResult<ExtraHours>> PostExtraHours(ExtraHours extraHours)
         {
             _context.ExtraHours.Add(extraHours);

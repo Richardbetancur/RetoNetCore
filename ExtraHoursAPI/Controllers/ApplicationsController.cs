@@ -12,7 +12,7 @@ namespace ExtraHoursAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    //[Authorize]
+    [Authorize]
     public class ApplicationsController : ControllerBase
     {
         private readonly HoursContext _context;
@@ -44,7 +44,7 @@ namespace ExtraHoursAPI.Controllers
         }
 
         [HttpGet("GetApplicationsbyColaborator/{colaborator}")]
-
+        [Authorize(Roles = "5")]
         public async Task<ActionResult<IEnumerable<Applications>>> GetApplicationsbyColaborator(int colaborator)
         {
 
@@ -52,8 +52,8 @@ namespace ExtraHoursAPI.Controllers
 
         }
 
-        [HttpGet("GetApplicationsbyDate")]   
-
+        [HttpGet("GetApplicationsbyDate")]
+        [Authorize(Roles = "5")]
         public async Task<ActionResult<IEnumerable<Applications>>> GetApplicationsbyDate()
         {
 
@@ -68,7 +68,7 @@ namespace ExtraHoursAPI.Controllers
 
 
         [HttpGet("GetApplicationsbyStatus/{status}")]
-
+        [Authorize(Roles = "6")]
         public async Task<ActionResult<IEnumerable<Applications>>> GetApplicationsbyStatus(int status)
         {
 
@@ -89,6 +89,7 @@ namespace ExtraHoursAPI.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
+        [Authorize(Roles = "6")]
         public async Task<IActionResult> PutApplications(int id, Applications applications)
         {
             if (id != applications.IdApplication)
@@ -121,7 +122,7 @@ namespace ExtraHoursAPI.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
-        //[Authorize(Roles = "2")]
+        [Authorize(Roles = "6")]
         public async Task<ActionResult<Applications>> PostApplications(Applications applications)
         {
             _context.Applications.Add(applications);

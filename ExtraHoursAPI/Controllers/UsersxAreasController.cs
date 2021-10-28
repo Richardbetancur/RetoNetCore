@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ExtraHoursAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace ExtraHoursAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class UsersxAreasController : ControllerBase
     {
         private readonly HoursContext _context;
@@ -22,6 +24,7 @@ namespace ExtraHoursAPI.Controllers
 
         // GET: api/UsersxAreas
         [HttpGet]
+        [Authorize(Roles = "4")]
         public async Task<ActionResult<IEnumerable<UsersxAreas>>> GetUsersxAreas()
         {
             return await _context.UsersxAreas.ToListAsync();
@@ -77,6 +80,7 @@ namespace ExtraHoursAPI.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
+        [Authorize(Roles = "4")]
         public async Task<ActionResult<UsersxAreas>> PostUsersxAreas(UsersxAreas usersxAreas)
         {
             _context.UsersxAreas.Add(usersxAreas);
