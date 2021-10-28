@@ -66,6 +66,25 @@ namespace ExtraHoursAPI.Controllers
 
         }
 
+
+        [HttpGet("GetApplicationsbyStatus/{status}")]
+
+        public async Task<ActionResult<IEnumerable<Applications>>> GetApplicationsbyStatus(int status)
+        {
+
+            if (status == 1)
+            {
+                var appState = true;
+                return await _context.Applications.Where(a => a.ApplicationStatus == appState).ToListAsync();
+            }
+            else {
+                var appState = false;
+                return await _context.Applications.Where(a => a.ApplicationStatus == appState).ToListAsync();
+            }
+            
+
+        }
+
         // PUT: api/Applications/5
         // To protect from overposting attacks, enable the specific properties you want to bind to, for
         // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
